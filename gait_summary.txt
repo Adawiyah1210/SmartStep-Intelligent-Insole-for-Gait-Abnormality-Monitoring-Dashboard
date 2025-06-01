@@ -1,0 +1,4 @@
+Gait Class Count:
+Gait
+Normal      20
+Abnormal    16
