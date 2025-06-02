@@ -6,7 +6,7 @@ import joblib
 import json
 
 # 1. Load dataset dengan features dan label
-df = pd.read_csv('gait_features_full.csv')
+df = pd.read_csv('gait_features_new.csv')
 
 # Pisah features dan label
 X = df.drop(columns=['label'])
@@ -33,5 +33,5 @@ print("Accuracy:", accuracy_score(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 
 # 6. Simpan model ke file pkl
-joblib.dump(clf, 'gait_classifier_rf.pkl')
-print("Model saved to gait_classifier_rf.pkl")
+joblib.dump(clf, 'gait_classifier_new.pkl')
+print("Model saved to gait_classifier_new.pkl")

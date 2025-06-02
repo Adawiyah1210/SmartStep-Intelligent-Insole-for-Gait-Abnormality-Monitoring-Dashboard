@@ -1,13 +1,17 @@
 import streamlit as st
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import json
+
+# Load service account key from Streamlit secrets
+key_dict = json.loads(st.secrets["gcp_service_account"]["key"])
 
 # Google Sheets setup
 scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('healthy-skill-460806-r0-5a56fbb8ae3a.json', scope)  # nama file JSON kau
+creds = ServiceAccountCredentials.from_json_keyfile_dict(key_dict, scope)
 client = gspread.authorize(creds)
 
-sheet = client.open("SmartStep Intelligent Insole for Gait Abnormality Monitoring Dashboard").sheet1  # ganti dengan nama Google Sheet kau
+sheet = client.open("SmartStep Intelligent Insole for Gait Abnormality Monitoring Dashboard").sheet1
 
 st.title("User Input Form - Save to Google Sheets")
 
@@ -17,7 +21,6 @@ comment = st.text_area("Any comment?")
 
 if st.button("Submit"):
     if name:
-        # Simpan data ke Google Sheets
         sheet.append_row([name, age, comment])
         st.success("Thank you! Your data has been saved.")
     else:
