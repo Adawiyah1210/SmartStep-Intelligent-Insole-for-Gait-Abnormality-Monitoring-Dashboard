@@ -1,0 +1,147 @@
+commit d3798dfa7b232269219378101ab78b78934d2da7
+Author: Rabiatul Adawiyah <nrabiatuladwiyah@gmail.com>
+Date:   Mon Jun 2 21:38:12 2025 +0800
+
+    Update app.py with latest logic
+
+ extract_features_full.py                           |   6 +-
+ gait_classifier_new.pkl                            | Bin 0 -> 49585 bytes
+ gait_classifier_rf.pkl                             | Bin 49585 -> 49585 bytes
+ gait_data_20250601_001229.csv => gait_data_new.csv |   0
+ gait_features_full.csv                             |   6 +-
+ gait_features_new.csv                              |   3 +
+ streamlit_testing.py                               | 153 +++++++++++----------
+ train_model_features.py                            |   6 +-
+ 8 files changed, 96 insertions(+), 78 deletions(-)
+
+commit b2d91d2671866c398ee79a84b33f1242dfc813bb
+Author: Rabiatul Adawiyah <nrabiatuladwiyah@gmail.com>
+Date:   Mon Jun 2 16:34:05 2025 +0800
+
+    Update streamlit_app with Google Sheets integration
+
+ streamlit_app.py | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+commit 4603213ba88db0c45456f5e449395862803521bb
+Author: Rabiatul Adawiyah <nrabiatuladwiyah@gmail.com>
+Date:   Mon Jun 2 16:01:19 2025 +0800
+
+    Add requirements.txt with gspread and oauth2client
+
+ requirements.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 4187df0c261fadbf7d7098a720d52940e265ead9
+Author: Rabiatul Adawiyah <nrabiatuladwiyah@gmail.com>
+Date:   Mon Jun 2 15:40:07 2025 +0800
+
+    Add streamlit_app.py
+
+ streamlit_app.py | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+commit a2fe57bf9b25685f4055b6a72905140ffffa5902
+Author: Adawiyah1210 <nrabiatuladwiyah@gmail.com>
+Date:   Sun Jun 1 19:51:47 2025 +0800
+
+    Added Dev Container Folder
+
+ .devcontainer/devcontainer.json | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+
+commit 25de32a63b7eb627b6a66cf7a62c81977180bbf9
+Author: Rabiatul Adawiyah <nrabiatuladwiyah@gmail.com>
+Date:   Sun Jun 1 19:48:17 2025 +0800
+
+    Add requirements.txt for deployment
+
+ requirements.txt | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit 20c18e56885afdac2e2fbac68ecb2696a9de0f23
+Author: Rabiatul Adawiyah <nrabiatuladwiyah@gmail.com>
+Date:   Sun Jun 1 19:24:10 2025 +0800
+
+    Initial commit
+
+ Figure_1(cnn_lstm_train).png                       |  Bin 0 -> 50423 bytes
+ Figure_1(confusion_matrix).png                     |  Bin 0 -> 15077 bytes
+ Figure_1(x_window_visual).png                      |  Bin 0 -> 206858 bytes
+ Figure_1(y_window_visual).png                      |  Bin 0 -> 15640 bytes
+ Figure_1.png                                       |  Bin 0 -> 42965 bytes
+ Figure_2.png                                       |  Bin 0 -> 65241 bytes
+ Figure_3.png                                       |  Bin 0 -> 97199 bytes
+ Khatijah.jpg                                       |  Bin 0 -> 23697 bytes
+ README.md                                          |    1 +
+ X.npy                                              |  Bin 0 -> 16928 bytes
+ X0_window_visual.png                               |  Bin 0 -> 195686 bytes
+ X_test.npy                                         |  Bin 0 -> 4928 bytes
+ __pycache__/full_feature_extractor.cpython-310.pyc |  Bin 0 -> 937 bytes
+ acceleration_plot.png                              |  Bin 0 -> 23665 bytes
+ cnn_lstm_eval.py                                   |   72 +
+ cnn_lstm_train.py                                  |   63 +
+ cnn_lstm_training_plot.png                         |  Bin 0 -> 50423 bytes
+ contoh_saya.py                                     |    3 +
+ data_sensor.csv                                    |   37 +
+ deeplearning.py                                    |  117 ++
+ deeplearningcode/deeplearningcode.ino              |  145 ++
+ extract_features.py                                |   34 +
+ extract_features_full.py                           |   96 ++
+ feature_columns.json                               |    1 +
+ foot_heatmap.py                                    |   51 +
+ foot_right.png                                     |  Bin 0 -> 55645 bytes
+ foot_test.py                                       |   58 +
+ fsr_plot.png                                       |  Bin 0 -> 108384 bytes
+ full_feature_extractor.py                          |   39 +
+ full_feature_extractor_blynk.py                    |   87 ++
+ gait_classifier_rf.pkl                             |  Bin 0 -> 49585 bytes
+ gait_data.csv                                      |   62 +
+ gait_data_20250530_012845.csv                      |   23 +
+ gait_data_20250530_150732.csv                      |   33 +
+ gait_data_20250530_151141.csv                      |   45 +
+ gait_data_20250530_223726.csv                      |    0
+ gait_data_20250530_224013.csv                      |    0
+ gait_data_20250530_224350.csv                      |    0
+ gait_data_20250530_224618.csv                      |   43 +
+ gait_data_20250530_233543.csv                      |    1 +
+ gait_data_20250530_233732.csv                      |   11 +
+ gait_data_20250601_001229.csv                      |   53 +
+ gait_data_20250601_015832.csv                      | 1448 ++++++++++++++++++++
+ gait_features_extracted.csv                        |    4 +
+ gait_features_full.csv                             |    4 +
+ gait_label_plot.png                                |  Bin 0 -> 18015 bytes
+ gait_summary.txt                                   |    4 +
+ generate_heatmap_gif.py                            |   47 +
+ gui_heatmap.py                                     |   74 +
+ gyro_plot.png                                      |  Bin 0 -> 65241 bytes
+ gyroscope_plot.png                                 |  Bin 0 -> 63161 bytes
+ heatmap_foot.py                                    |   94 ++
+ label_distribution.png                             |  Bin 0 -> 15640 bytes
+ load_x_data.py                                     |    7 +
+ load_y_data.py                                     |    8 +
+ log_gait_nur.xlsx                                  |  Bin 0 -> 5203 bytes
+ model_cnn_lstm.h5                                  |  Bin 0 -> 514608 bytes
+ model_reshape.py                                   |   24 +
+ new_gait_window.csv                                |   67 +
+ prepare_data.py                                    |   43 +
+ rabiatul.jpg                                       |  Bin 0 -> 23525 bytes
+ realtime_classification.py                         |   95 ++
+ serial_reader.py                                   |   32 +
+ server.py                                          |   28 +
+ streamlit_run_dashboard.py                         |  124 ++
+ streamlit_testing.py                               |  167 +++
+ tapak_kaki.png                                     |  Bin 0 -> 66540 bytes
+ tcp_server.py                                      |   56 +
+ tcpcode/tcpcode.ino                                |  146 ++
+ timestep.py                                        |    7 +
+ train.py                                           |   75 +
+ train_model_features.py                            |   37 +
+ visualize_data.py                                  |   42 +
+ visualize_gait.py                                  |   72 +
+ visualize_image.py                                 |   93 ++
+ x_window_visual.py                                 |   28 +
+ y.npy                                              |  Bin 0 -> 156 bytes
+ y_test.npy                                         |  Bin 0 -> 160 bytes
+ y_window_visual.py                                 |   23 +
+ 79 files changed, 3924 insertions(+)
