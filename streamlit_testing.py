@@ -93,19 +93,22 @@ col1, col2 = st.columns([2, 1])
 # ========== LEFT SECTION ==========
 with col1:
     st.subheader("🔥 Foot Pressure Heatmap (Right Foot)")
-    
+
     # Select specific frame to display heatmap
     frame_num = st.slider("Select Frame", 1, len(df), 1)
     row = df.iloc[frame_num - 1]
     pressure_grid = np.array([
         [row['fsr2'], row['fsr3']],
         [row['fsr1'], row['fsr4']]
-    ])
+    ], dtype=float)
 
-    # Plot heatmap
+    # Dynamic scale color for heatmap per frame
+    min_val = pressure_grid.min()
+    max_val = pressure_grid.max()
+    if max_val == min_val:max_val = min_val + 0.1  # avoid zero range
+
     fig, ax = plt.subplots(figsize=(4, 4))
-    heatmap = ax.imshow(pressure_grid, cmap='jet', interpolation='nearest',
-vmin=pressure_grid.min(), vmax=pressure_grid.max() + 1)
+    heatmap = ax.imshow(pressure_grid, cmap='jet', interpolation='nearest', vmin=min_val, vmax=max_val)
     ax.set_xticks([0, 1])
     ax.set_xticklabels(['Mid-Left', 'Mid-Right'])
     ax.set_yticks([0, 1])
@@ -115,6 +118,7 @@ vmin=pressure_grid.min(), vmax=pressure_grid.max() + 1)
     ax.invert_yaxis()
     st.pyplot(fig)
 
+    # Use original pressure values for grading, to keep logic consistent
     grade = pressure_grade(pressure_grid.flatten())
     st.markdown(f"**Pressure Status: {grade}**")
 
@@ -148,18 +152,18 @@ with col2:
     if user_image is not None:
         st.image(user_image, caption="User Image", use_column_width=True)
 
-    st.markdown(f"- Name: `{name}`")
-    st.markdown(f"- Age: `{age}`")
-    st.markdown(f"- Gender: `{gender}`")
-    st.markdown(f"- Weight: `{weight} kg`")
-    st.markdown(f"- Height: `{height} cm`")
-    st.markdown(f"- BMI: `{bmi:.2f}`")
-    st.markdown(f"- Daily Activity: `{daily_activity}`")
-    st.markdown(f"- Assistive Device: `{assistive_device}`")
-    st.markdown(f"- Foot Type: `{foot_type}`")
-    st.markdown(f"- Activity During Data: `{activity_during_data}`")
-    st.markdown(f"- Shoe Type: `{shoe_type}`")
-    st.markdown(f"- Medical History: `{medical_history}`")
+    st.markdown(f"- Name: {name}")
+    st.markdown(f"- Age: {age}")
+    st.markdown(f"- Gender: {gender}")
+    st.markdown(f"- Weight: {weight} kg")
+    st.markdown(f"- Height: {height} cm")
+    st.markdown(f"- BMI: {bmi:.2f}")
+    st.markdown(f"- Daily Activity: {daily_activity}")
+    st.markdown(f"- Assistive Device: {assistive_device}")
+    st.markdown(f"- Foot Type: {foot_type}")
+    st.markdown(f"- Activity During Data: {activity_during_data}")
+    st.markdown(f"- Shoe Type: {shoe_type}")
+    st.markdown(f"- Medical History: {medical_history}")
 
 # ========== CLASSIFICATION ==========
 st.subheader("🧠 Gait Classification Result")
@@ -170,7 +174,7 @@ if model is not None:
     df_input = df_input.reindex(columns=feature_columns, fill_value=0)
     pred = model.predict(df_input)[0]
 
-    st.markdown(f"### 🏁 Result: `{pred.upper()}`")
+    st.markdown(f"### 🏁 Result: {pred.upper()}")
 
     if pred.lower() == "normal":
         st.success("👍 Your gait appears NORMAL. Foot pressure and movement are stable.")
