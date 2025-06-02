@@ -75,7 +75,7 @@ def full_feature_extractor(window):
     return features
 
 if __name__ == "__main__":
-    df = pd.read_csv('gait_data.csv')
+    df = pd.read_csv('gait_data_new.csv')
 
     window_size = 30
     step_size = 15
@@ -92,5 +92,5 @@ if __name__ == "__main__":
         features_list.append(feat)
 
     features_df = pd.DataFrame(features_list)
-    features_df.to_csv('gait_features_full.csv', index=False)
-    print("Feature extraction lengkap siap! Output disimpan ke gait_features_full.csv")
+    features_df.to_csv('gait_features_new.csv', index=False)
+    print("Feature extraction lengkap siap! Output disimpan ke gait_features_new.csv")
