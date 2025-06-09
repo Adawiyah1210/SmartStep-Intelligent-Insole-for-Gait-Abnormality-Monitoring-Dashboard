@@ -27,7 +27,6 @@ int fsrPin1 = 32, fsrPin2 = 35, fsrPin3 = 33, fsrPin4 = 34;
 int fsrValue1, fsrValue2, fsrValue3, fsrValue4;
 float fsrForce1, fsrForce2, fsrForce3, fsrForce4;
 
-String gaitLabel = "Normal";
 bool isStreaming = false; // Kawalan dari Blynk V12
 
 // Blynk V12 = Start/Stop Button
@@ -64,18 +63,12 @@ void sendSensorData() {
   fsrForce3 = (fsrResistance3 <= 600000) ? 25.0 / (fsrResistance3 / 1000.0) : 0.0;
   fsrForce4 = (fsrResistance4 <= 600000) ? 25.0 / (fsrResistance4 / 1000.0) : 0.0;
 
-  // Klasifikasi Gait
-  if (fsrForce1 > 20 && fsrForce2 > 20 && fsrForce3 > 20 || fsrForce4 > 0.20) {
-    gaitLabel = "Abnormal";
-  } else {
-    gaitLabel = "Normal";
-  }
 
   // Bentuk string data
   String dataString = String(mySensor.accelX()) + "," + String(mySensor.accelY()) + "," + String(mySensor.accelZ()) + "," +
                       String(mySensor.gyroX()) + "," + String(mySensor.gyroY()) + "," + String(mySensor.gyroZ()) + "," +
                       String(fsrForce1) + "," + String(fsrForce2) + "," + String(fsrForce3) + "," + String(fsrForce4) + "," +
-                      gaitLabel;
+   
 
   Serial.println(dataString); // Debug serial
 
@@ -104,7 +97,6 @@ void sendSensorData() {
   Blynk.virtualWrite(V8, mySensor.gyroX());
   Blynk.virtualWrite(V9, mySensor.gyroY());
   Blynk.virtualWrite(V10, mySensor.gyroZ());
-  Blynk.virtualWrite(V11, gaitLabel);
 }
 
 void setup() {
@@ -130,9 +122,8 @@ void setup() {
   Blynk.config(auth, server_ip_blynk, blynk_port);
   Blynk.connect();
 
-  timer.setInterval(500L, sendSensorData); // 2Hz
+  timer.setInterval(10L, sendSensorData); // 2Hz
 }
-
 void loop() {
   // Auto reconnect WiFi
   if (WiFi.status() != WL_CONNECTED) {
