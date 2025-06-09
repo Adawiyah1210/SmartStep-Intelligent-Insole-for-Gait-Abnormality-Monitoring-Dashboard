@@ -1,3 +1,9 @@
+streamlit
+pandas
+numpy
+matplotlib
+joblib
+scikit-learn
 torch
-Pillow
-monai
+torchvision
+Monai
