@@ -1,26 +1,11 @@
-# Ignore virtual environment
+# Ignore Python virtual environment
 env/
-venv/
 
-# Python cache
+# Ignore Python cache files and folders
 __pycache__/
-*.py[cod]
+*.pyc
+*.pyo
+*.pyd
 
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
-
-# System files
-*.DS_Store
-Thumbs.db
-
-# Logs and temp files
-*.log
-*.tmp
-
-# VS Code settings
-.vscode/
-
-# Build artifacts
-build/
-dist/
-*.egg-info/
+# Ignore macOS system files (optional)
+.DS_Store
