@@ -9,6 +9,21 @@ import torch.nn as nn
 import matplotlib.cm as cm
 from scipy.ndimage import zoom
 import streamlit as st
+import gdown
+import torch
+
+# Gantikan dengan ID fail Google Drive anda
+url = 'https://drive.google.com/uc?export=download&id=1EsvSLsyeNEpNjc1tPuKfK9ezx2MnypAA'
+output = 'gait_classifier_model.pth'
+
+# Muat turun fail dari Google Drive
+gdown.download(url, output, quiet=False)
+
+# Muatkan model
+model = torch.load(output)
+
+# Pastikan model berfungsi
+print("Model loaded successfully!")
 
 # === 1. App Layout ===
 st.set_page_config(layout="wide", page_title="Gait Analysis Dashboard")
