@@ -4,6 +4,7 @@ numpy
 matplotlib
 joblib
 scikit-learn
-gdown
 torch
 torchvision
+Monai
+gdown
