@@ -5,4 +5,5 @@ matplotlib
 joblib
 scikit-learn
 torch
+torchvision
 Monai
