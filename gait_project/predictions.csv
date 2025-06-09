@@ -1,0 +1,11 @@
+filename,score,prediction,true_label
+pic 1.png,0.6637,Normal,Unknown
+pic 10.png,0.0007,Abnormal,Unknown
+pic 2.png,0.0,Abnormal,Unknown
+pic 3.png,0.9996,Normal,Unknown
+pic 4.png,0.2276,Abnormal,Unknown
+pic 5.png,0.0,Abnormal,Unknown
+pic 6.png,0.9999,Normal,Unknown
+pic 7.png,0.0,Abnormal,Unknown
+pic 8.png,0.9992,Normal,Unknown
+pic 9.png,0.9897,Normal,Unknown
