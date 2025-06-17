@@ -1,6 +1,7 @@
 #define BLYNK_PRINT Serial
 #include <WiFi.h>
 #include <WiFiClient.h>
+#include <WiFiUdp.h>
 #include <BlynkSimpleEsp32.h>
 #include <Wire.h>
 #include <MPU9250_asukiaaa.h>
@@ -14,11 +15,11 @@ char pass[] = "12345678";
 IPAddress server_ip_blynk(152, 42, 239, 200);
 int blynk_port = 8080;
 
-// TCP server Python
-IPAddress server_ip_tcp(172,20,10,10); // IP Python PC
-int tcp_port = 3000;
+// UDP ke Python
+IPAddress server_ip_udp(172, 20, 10, 10);  // IP Python PC
+int udp_port = 3000;
+WiFiUDP udp;
 
-WiFiClient tcpClient;
 BlynkTimer timer;
 MPU9250_asukiaaa mySensor;
 
@@ -38,7 +39,7 @@ BLYNK_WRITE(V12) {
 void sendSensorData() {
   if (!isStreaming) return;
 
-  // Update sensor IMU
+  // Update IMU
   mySensor.accelUpdate();
   mySensor.gyroUpdate();
 
@@ -59,30 +60,19 @@ void sendSensorData() {
   fsrForce2 = (fsrResistance2 <= 600000) ? 25.0 / (fsrResistance2 / 1000.0) : 0.0;
   fsrForce3 = (fsrResistance3 <= 600000) ? 25.0 / (fsrResistance3 / 1000.0) : 0.0;
 
-
-  // Bentuk string data
+  // Bentuk data string
   String dataString = String(mySensor.accelX()) + "," + String(mySensor.accelY()) + "," + String(mySensor.accelZ()) + "," +
                       String(mySensor.gyroX()) + "," + String(mySensor.gyroY()) + "," + String(mySensor.gyroZ()) + "," +
                       String(fsrForce1) + "," + String(fsrForce2) + "," + String(fsrForce3);
-   
 
-  Serial.println(dataString); // Debug serial
+  Serial.println(dataString); // Debug
 
-  // Sambung TCP jika belum connected
-  if (!tcpClient.connected()) {
-    tcpClient.stop(); // buang sambungan lama
-    if (tcpClient.connect(server_ip_tcp, tcp_port)) {
-      Serial.println("✔️ TCP connected");
-    } else {
-      Serial.println("❌ Gagal sambung TCP");
-      return;
-    }
-  }
+  // Hantar ke Python (UDP)
+  udp.beginPacket(server_ip_udp,udp_port);
+  udp.print(dataString);
+  udp.endPacket();
 
-  // Hantar data ke Python
-  tcpClient.println(dataString);
-
-  // Blynk display
+  // Hantar ke Blynk
   Blynk.virtualWrite(V1, fsrForce1);
   Blynk.virtualWrite(V2, fsrForce2);
   Blynk.virtualWrite(V3, fsrForce3);
@@ -112,14 +102,18 @@ void setup() {
     Serial.print(".");
   }
   Serial.println("✔️ WiFi connected");
+  Serial.print("IP ESP32: ");
+  Serial.println(WiFi.localIP());  // Ini akan print IP ESP32
+
+  udp.begin(4210);
 
   Blynk.config(auth, server_ip_blynk, blynk_port);
   Blynk.connect();
 
   timer.setInterval(250L, sendSensorData); // 2Hz
 }
+
 void loop() {
-  // Auto reconnect WiFi
   if (WiFi.status() != WL_CONNECTED) {
     WiFi.begin(ssid, pass);
     delay(1000);

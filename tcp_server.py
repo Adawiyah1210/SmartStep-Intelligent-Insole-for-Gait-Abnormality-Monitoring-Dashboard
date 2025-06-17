@@ -11,8 +11,7 @@ csv_file = f"gait_data_{timestamp}.csv"
 headers = [
     "accelX", "accelY", "accelZ",
     "gyroX", "gyroY", "gyroZ",
-    "fsr1", "fsr2", "fsr3", "fsr4",
-    "label"
+    "fsr1", "fsr2", "fsr3"
 ]
 
 def start_server():
