@@ -20,22 +20,30 @@ class GaitCNN(nn.Module):
     def __init__(self):
         super().__init__()
         self.resnet = models.resnet18(weights=None)
+        num_ftrs = self.resnet.fc.in_features
         self.resnet.fc = nn.Sequential(
             nn.Dropout(0.4),
-            nn.Linear(self.resnet.fc.in_features, 1)
+            nn.Linear(num_ftrs, 1)
         )
 
     def forward(self, x):
         return torch.sigmoid(self.resnet(x))
 
 # === Model Loader ===
-@st.cache_resource(show_spinner="Loading gait classifier model...",)
-def load_model(path="best_gait_classifier_model.pth"):
-    model_id = "147-6yJ2GIjeN2azVJ_q7p3EfAdfK_dIm"  # replace with your actual file ID
+@st.cache_resource(show_spinner="Loading gait classifier model...")
+def load_model(path="best_gait_classifier_model.pth", use_state_dict=True):
+    model_id = "1JShKcf0ChuxdQMJu3IiepQ3Tt9maXPrJ"  # ganti YOUR_ID
+    url = f"https://drive.google.com/uc?id={model_id}&confirm=t"
+
     if not os.path.exists(path):
-        gdown.download(f"https://drive.google.com/uc?id={model_id}", path, quiet=False)
-    model = GaitCNN()
-    model.load_state_dict(torch.load(path, map_location=torch.device("cpu")))
+        gdown.download(url, path, quiet=False)
+
+    if use_state_dict:
+        model = GaitCNN()
+        model.load_state_dict(torch.load(path, map_location="cpu"))
+    else:
+        model = torch.load(path, map_location="cpu")
+
     model.eval()
     return model
 
