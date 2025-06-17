@@ -8,3 +8,5 @@ torch
 torchvision
 Monai
 gdown
+scipy
+pillow
