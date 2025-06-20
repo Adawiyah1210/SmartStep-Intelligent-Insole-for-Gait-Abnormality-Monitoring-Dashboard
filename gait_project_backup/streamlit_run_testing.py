@@ -12,8 +12,8 @@ from scipy.ndimage import zoom
 import gdown
 
 # === Streamlit Config ===
-st.set_page_config(page_title="🧶 Gait Analysis Dashboard", layout="wide")
-st.title("🧶 Gait Classification from IMU + FSR Sensor CSV")
+st.set_page_config(page_title="🦶🏻 Gait Analysis Dashboard", layout="wide")
+st.title("🦶🏻 SmartStep Intelligent Insole for Gait Abnormality     Monitoring")
 
 # === GaitCNN Definition (same as training) ===
 class GaitCNN(nn.Module):
@@ -94,7 +94,7 @@ def generate_heatmap_from_csv(csv_file):
     return "generated_heatmap.png", df
 
 # === Prediction Function ===
-def predict_image(img_path, model, threshold=0.5):
+def predict_image(img_path, model, threshold=0.8):
     transform = transforms.Compose([
         transforms.Resize((28, 28)),
         transforms.ToTensor(),
